@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <button id="btn-connect">Connect</button>
+    <button id="btn-disconnect">Disconnect</button>
+    <div></div>
+    <script src="socket.io/socket.io.js"></script>
+    <script>
+      const btnConnect = document.querySelector('#btn-connect');
+      const btnDisconnect = document.querySelector('#btn-disconnect');
+      const container = document.querySelector('div');
+      const socket = io();
+
+      socket.on('connect', () => {
+        console.log('Conectado al servidor de WebSocket');
+      });
+
+      socket.on('open port', (payload) => {
+        console.log(payload);
+      });
+
+      socket.on('error', (payload) => {
+        console.log(payload);
+        socket.disconnect();
+      });
+
+      socket.on('data', (payload) => {
+        console.log(payload);
+      });
+
+      btnConnect.addEventListener('click', () => {
+        socket.connect();
+      });
+
+      btnDisconnect.addEventListener('click', () => {
+        socket.disconnect();
+      });
+    </script>
+  </body>
+</html>
